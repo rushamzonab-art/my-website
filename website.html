@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NovaSpark – Ignite Your Business</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --c1: #ff3cac;
+      --c2: #784ba0;
+      --c3: #2b86c5;
+      --c4: #ffbe0b;
+      --c5: #fb5607;
+      --dark: #0d0d1a;
+      --light: #f5f0ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--dark);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 6%;
+      background: rgba(13,13,26,0.7);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--c1), var(--c4));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--c4); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--c1), var(--c2));
+      color: #fff !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 6% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Gradient blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      animation: drift 10s ease-in-out infinite alternate;
+    }
+    .blob1 { width: 500px; height: 500px; background: var(--c1); top: -100px; right: -100px; animation-delay: 0s; }
+    .blob2 { width: 400px; height: 400px; background: var(--c3); bottom: -80px; left: -80px; animation-delay: 2s; }
+    .blob3 { width: 300px; height: 300px; background: var(--c4); top: 40%; left: 40%; animation-delay: 4s; }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px, 30px) scale(1.1); }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 700px; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 0.4rem 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--c4);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .badge span { width: 8px; height: 8px; border-radius: 50%; background: var(--c4); display: inline-block; animation: pulse 1.5s infinite; }
+
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    h1 .grad {
+      background: linear-gradient(90deg, var(--c1), var(--c4), var(--c3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200%;
+      animation: shimmer 4s linear infinite;
+    }
+
+    @keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+
+    .hero p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .btn-group {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--c1), var(--c5));
+      color: #fff;
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 0 30px rgba(255,60,172,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(255,60,172,0.6); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.14); transform: translateY(-3px); }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      margin-top: 3.5rem;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    .stat-item { }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, var(--c4), var(--c5));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); font-weight: 500; letter-spacing: 0.5px; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      overflow: hidden;
+      padding: 1.2rem 0;
+      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+      position: relative; z-index: 2;
+    }
+    .marquee {
+      display: flex; gap: 3rem;
+      width: max-content;
+      animation: scroll 18s linear infinite;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.9);
+    }
+    @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── SERVICES ── */
+    .section {
+      padding: 7rem 6%;
+      position: relative; z-index: 2;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--c1);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 3.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--card-color);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: inherit;
+    }
+
+    .card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.2); }
+    .card:hover::before { opacity: 0.07; }
+
+    .card-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.3rem;
+      background: var(--card-color);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      counter-reset: steps;
+    }
+
+    .step {
+      position: relative;
+      padding: 2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      counter-increment: steps;
+    }
+
+    .step::before {
+      content: counter(steps, decimal-leading-zero);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      position: absolute;
+      top: -1rem; right: 1.5rem;
+      background: linear-gradient(135deg, var(--c1), var(--c3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.25;
+      line-height: 1;
+    }
+
+    .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .step p { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tcard {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .stars { color: var(--c4); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+
+    .tcard blockquote {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .author { display: flex; align-items: center; gap: 0.8rem; }
+    .avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .author-info strong { display: block; font-size: 0.9rem; }
+    .author-info span { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .price-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      transition: transform 0.3s;
+    }
+
+    .price-card.featured {
+      background: linear-gradient(135deg, rgba(255,60,172,0.15), rgba(43,134,197,0.15));
+      border-color: var(--c1);
+      box-shadow: 0 0 40px rgba(255,60,172,0.2);
+      transform: scale(1.04);
+    }
+
+    .price-card:hover { transform: scale(1.03); }
+    .price-card.featured:hover { transform: scale(1.07); }
+
+    .plan-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1rem;
+    }
+
+    .price-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .price-num span { font-size: 1.5rem; }
+    .price-period { font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; }
+
+    .price-features { list-style: none; margin-bottom: 2rem; }
+    .price-features li {
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .price-features li::before { content: '✦'; color: var(--c4); font-size: 0.6rem; }
+
+    .btn-plan {
+      display: block;
+      text-align: center;
+      padding: 0.9rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .btn-plan:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    .btn-plan-primary {
+      background: linear-gradient(135deg, var(--c1), var(--c2));
+      color: #fff;
+      box-shadow: 0 0 25px rgba(255,60,172,0.35);
+    }
+
+    .btn-plan-ghost {
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      margin: 0 6% 7rem;
+      background: linear-gradient(135deg, var(--c1) 0%, var(--c2) 50%, var(--c3) 100%);
+      border-radius: 28px;
+      padding: 5rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .cta-banner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .cta-banner p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .cta-banner .btn-white {
+      background: #fff;
+      color: var(--c2);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    }
+    .cta-banner .btn-white:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,0.3); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 3rem 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: relative; z-index: 2;
+    }
+
+    footer .logo { font-size: 1.6rem; }
+    footer p { color: rgba(255,255,255,0.35); font-size: 0.85rem; }
+
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--c4); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">NovaSpark</div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div class="hero-content">
+      <div class="badge"><span></span> Now Accepting New Clients</div>
+      <h1>
+        Ignite Your<br>
+        <span class="grad">Business Growth</span><br>
+        Today.
+      </h1>
+      <p>We craft bold digital experiences that attract, convert, and retain customers — faster than ever before. Your brand, supercharged.</p>
+      <div class="btn-group">
+        <a href="#contact" class="btn-primary">🚀 Start Free Trial</a>
+        <a href="#services" class="btn-secondary">See What We Do →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">12x</div>
+          <div class="stat-label">Avg. ROI Growth</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>⚡ Web Design</span><span>★ SEO</span><span>⚡ Branding</span><span>★ Marketing</span>
+      <span>⚡ Social Media</span><span>★ Analytics</span><span>⚡ Strategy</span><span>★ Growth Hacking</span>
+      <span>⚡ Web Design</span><span>★ SEO</span><span>⚡ Branding</span><span>★ Marketing</span>
+      <span>⚡ Social Media</span><span>★ Analytics</span><span>⚡ Strategy</span><span>★ Growth Hacking</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="reveal">
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Services Built to<br>Make You Win</h2>
+      <p class="section-sub">Everything you need to grow your brand, dominate your market, and delight your customers.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="card" style="--card-color: linear-gradient(135deg,#ff3cac,#784ba0)">
+        <div class="card-icon">🎨</div>
+        <h3>Brand Identity</h3>
+        <p>Logos, color systems, and visual language that make your brand impossible to ignore.</p>
+      </div>
+      <div class="card" style="--card-color: linear-gradient(135deg,#ffbe0b,#fb5607)">
+        <div class="card-icon">⚡</div>
+        <h3>Web Development</h3>
+        <p>Blazing-fast, beautiful websites and landing pages that convert visitors into customers.</p>
+      </div>
+      <div class="card" style="--card-color: linear-gradient(135deg,#2b86c5,#784ba0)">
+        <div class="card-icon">📈</div>
+        <h3>Growth Marketing</h3>
+        <p>Data-driven campaigns across SEO, paid ads, and social that deliver real ROI.</p>
+      </div>
+      <div class="card" style="--card-color: linear-gradient(135deg,#06d6a0,#2b86c5)">
+        <div class="card-icon">📊</div>
+        <h3>Analytics & Insights</h3>
+        <p>Deep-dive dashboards and reports so you always know what's working and what's not.</p>
+      </div>
+      <div class="card" style="--card-color: linear-gradient(135deg,#fb5607,#ff3cac)">
+        <div class="card-icon">📱</div>
+        <h3>Social Media</h3>
+        <p>Scroll-stopping content and community management to grow your audience fast.</p>
+      </div>
+      <div class="card" style="--card-color: linear-gradient(135deg,#ffbe0b,#06d6a0)">
+        <div class="card-icon">🤖</div>
+        <h3>AI Automation</h3>
+        <p>Automate repetitive tasks and workflows so your team can focus on what matters most.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how" style="background: rgba(255,255,255,0.02)">
+    <div class="reveal">
+      <div class="section-label">The Process</div>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">A simple, proven four-step process to transform your business.</p>
+    </div>
+    <div class="steps-grid reveal">
+      <div class="step">
+        <h3>Discovery Call</h3>
+        <p>We learn about your goals, challenges, and vision in a free 30-minute strategy session.</p>
+      </div>
+      <div class="step">
+        <h3>Custom Strategy</h3>
+        <p>Our team crafts a tailored roadmap designed specifically for your business and industry.</p>
+      </div>
+      <div class="step">
+        <h3>Build & Launch</h3>
+        <p>We execute fast, iterating and refining until every detail is perfect before going live.</p>
+      </div>
+      <div class="step">
+        <h3>Scale & Grow</h3>
+        <p>Ongoing support, reporting, and optimization to keep your growth compounding month after month.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" id="testimonials">
+    <div class="reveal">
+      <div class="section-label">Social Proof</div>
+      <h2 class="section-title">Loved by Founders<br>& Marketers</h2>
+      <p class="section-sub">Don't take our word for it — hear from the people we've helped grow.</p>
+    </div>
+    <div class="testimonials-grid reveal">
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <blockquote>"NovaSpark tripled our website traffic in just 90 days. The team is brilliant, responsive, and genuinely invested in our success."</blockquote>
+        <div class="author">
+          <div class="avatar" style="background:linear-gradient(135deg,#ff3cac,#784ba0)">SK</div>
+          <div class="author-info">
+            <strong>Sara Kim</strong>
+            <span>CEO, Bloom Retail</span>
+          </div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Best investment I've made for my business. The new branding and website completely transformed how customers perceive us."</blockquote>
+        <div class="author">
+          <div class="avatar" style="background:linear-gradient(135deg,#ffbe0b,#fb5607)">MR</div>
+          <div class="author-info">
+            <strong>Marcus Reid</strong>
+            <span>Founder, TechForge</span>
+          </div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <blockquote>"We went from invisible to industry-leading in under 6 months. NovaSpark's marketing strategy is pure gold."</blockquote>
+        <div class="author">
+          <div class="avatar" style="background:linear-gradient(135deg,#2b86c5,#06d6a0)">JP</div>
+          <div class="author-info">
+            <strong>Jiya Patel</strong>
+            <span>Head of Growth, Vela Labs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing">
+    <div class="reveal">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Simple, Transparent<br>Pricing</h2>
+      <p class="section-sub">No hidden fees. Cancel anytime. Pick the plan that fits where you are.</p>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="price-card">
+        <div class="plan-name">Starter</div>
+        <div class="price-num"><span>$</span>49</div>
+        <div class="price-period">per month</div>
+        <ul class="price-features">
+          <li>1 Brand Strategy Session</li>
+          <li>Landing Page Design</li>
+          <li>Basic SEO Setup</li>
+          <li>Monthly Report</li>
+          <li>Email Support</li>
+        </ul>
+        <a href="#contact" class="btn-plan btn-plan-ghost">Get Started</a>
+      </div>
+      <div class="price-card featured">
+        <div class="plan-name">Pro ✦ Most Popular</div>
+        <div class="price-num"><span>$</span>149</div>
+        <div class="price-period">per month</div>
+        <ul class="price-features">
+          <li>Full Brand Identity</li>
+          <li>Custom Website (5 pages)</li>
+          <li>Advanced SEO + Ads</li>
+          <li>Social Media Management</li>
+          <li>Weekly Reports</li>
+          <li>Priority Support</li>
+        </ul>
+        <a href="#contact" class="btn-plan btn-plan-primary">Start Free Trial</a>
+      </div>
+      <div class="price-card">
+        <div class="plan-name">Enterprise</div>
+        <div class="price-num"><span>$</span>399</div>
+        <div class="price-period">per month</div>
+        <ul class="price-features">
+          <li>Complete Digital Overhaul</li>
+          <li>Unlimited Pages</li>
+          <li>AI Automation Setup</li>
+          <li>Dedicated Account Manager</li>
+          <li>Real-time Analytics</li>
+          <li>24/7 Support</li>
+        </ul>
+        <a href="#contact" class="btn-plan btn-plan-ghost">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner reveal" id="contact">
+    <h2>Ready to Ignite Your Growth?</h2>
+    <p>Join 500+ businesses already scaling with NovaSpark. Your first call is free.</p>
+    <a href="mailto:hello@novaspark.co" class="btn-white">🚀 Book a Free Strategy Call</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">NovaSpark</div>
+    <p>© 2026 NovaSpark. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
